@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 // code deploy 
 // pos start
+// mohsin pos connected
 Route::get('/', function () {
     return view('welcome');
 });
