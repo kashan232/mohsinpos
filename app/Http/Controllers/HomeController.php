@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\CustomerCredit;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,9 +54,14 @@ class HomeController extends Controller
                 $suppliers = DB::table('suppliers')->count();
                 $customers = DB::table('customers')->count();
 
+                $CustomerCredit = CustomerCredit::all();
+                $CustomerCreditTotal = CustomerCredit::sum('closing_balance');
+
+
+
                 // $lowStockProducts = Product::whereRaw('CAST(stock AS UNSIGNED) <= CAST(alert_quantity AS UNSIGNED)')->get();
                 // dd($lowStockProducts);
-                return view('admin_panel.admin_dashboard', compact('totalPurchasesPrice', 'totalPurchaseReturnsPrice', 'all_product', 'totalStockValue', 'categories', 'products', 'suppliers', 'customers'));
+                return view('admin_panel.admin_dashboard', compact('totalPurchasesPrice', 'totalPurchaseReturnsPrice', 'all_product', 'totalStockValue', 'categories', 'products', 'suppliers', 'customers','CustomerCredit','CustomerCreditTotal'));
             }
         } else {
             return Redirect()->route('login');

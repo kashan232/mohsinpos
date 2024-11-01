@@ -38,6 +38,20 @@
                     <div class="col-xxl-3 col-sm-6">
                         <div class="widget-two box--shadow2 b-radius--5 bg--white">
                             <i class="las la-shopping-bag overlay-icon text--success"></i>
+                            <div class="widget-two__icon b-radius--5   bg--info  ">
+                                <i class="las la-shopping-bag"></i>
+                            </div>
+                            <div class="widget-two__content">
+                                <h3>{{ $CustomerCreditTotal }}</h3>
+                                <p>Total Customer Credit</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xxl-3 col-sm-6">
+                        <div class="widget-two box--shadow2 b-radius--5 bg--white">
+                            <i class="las la-shopping-bag overlay-icon text--success"></i>
 
                             <div class="widget-two__icon b-radius--5   bg--success  ">
                                 <i class="las la-shopping-bag"></i>
@@ -118,6 +132,9 @@
 
 
                 <div class="row gy-4 mb-30">
+
+                   
+
                     <div class="col-xl-6">
                         <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
                             <h5>Product Alert Items </h5>
@@ -188,6 +205,38 @@
                                                 <td>{{ $product->stock }}</td>
                                                 <td>{{ $product->wholesale_price }}</td>
                                                 <td>{{ $product->total_stock_value }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table><!-- table end -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+                            <h5>Customer Credit </h5>
+                        </div>
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="table-responsive--sm table-responsive">
+                                    <table class="table table--light">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Privous Balance</th>
+                                                <th>Net Total</th>
+                                                <th>Closing Balance</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($CustomerCredit as $CustomerC)
+                                            <tr>
+                                                <td class="fw-bold"> {{ $CustomerC->customer_name }} </td>
+                                                <td> {{ $CustomerC->previous_balance }} </td>
+                                                <td> {{ $CustomerC->net_total }} </td>
+                                                <td> {{ $CustomerC->closing_balance }} </td>
                                             </tr>
                                             @endforeach
                                         </tbody>

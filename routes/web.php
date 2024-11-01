@@ -116,7 +116,7 @@ Route::get('/Sale', [SaleController::class, 'Sale'])->middleware(['auth','admin'
 Route::get('/add-Sale', [SaleController::class, 'add_Sale'])->middleware(['auth','admin'])->name('add-Sale');
 Route::post('/store-Sale', [SaleController::class, 'store_Sale'])->name('store-Sale');
 Route::get('/all-sales', [SaleController::class, 'all_sales'])->name('all-sales');
-
+Route::get('/get-customer-amount/{id}', [SaleController::class, 'get_customer_amount'])->name('get-customer-amount');
 
 // Route for downloading invoice
 Route::get('/invoice/download/{id}', [SaleController::class, 'downloadInvoice'])->name('invoice.download');
@@ -129,6 +129,8 @@ Route::get('/sale-receipt/{id}', [SaleController::class, 'showReceipt'])->name('
 Route::get('/customer', [CustomerController::class, 'customer'])->middleware(['auth','admin'])->name('customer');
 Route::post('/store-customer', [CustomerController::class, 'store_customer'])->name('store-customer');
 Route::post('/update-customer', [CustomerController::class, 'update_customer'])->name('update-customer');
+Route::post('/customer/recovery', [CustomerController::class, 'processRecovery'])->name('customer.recovery');
+Route::get('/customer-recovires', [CustomerController::class, 'customer_recovires'])->middleware(['auth','admin'])->name('customer-recovires');
 
 
 

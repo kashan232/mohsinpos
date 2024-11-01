@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\CustomerCredit;
+use App\Models\CustomerRecovery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +16,12 @@ class CustomerController extends Controller
         if (Auth::id()) {
             $userId = Auth::id();
             // dd($userId);
-            $Customers = Customer::where('admin_or_user_id', '=', $userId)->get();
+            // Fetch customers along with their closing balance from customer_credits
+            $Customers = Customer::where('admin_or_user_id', $userId)
+                ->leftJoin('customer_credits', 'customers.id', '=', 'customer_credits.customerId')
+                ->select('customers.*', 'customer_credits.closing_balance')
+                ->get();
+
             return view('admin_panel.customers.customers', [
                 'Customers' => $Customers
             ]);
@@ -66,4 +73,54 @@ class CustomerController extends Controller
             return redirect()->back();
         }
     }
+
+    public function processRecovery(Request $request)
+    {
+        $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'recovery_date' => 'required|date',
+            'recovery_amount' => 'required|numeric|min:0',
+        ]);
+
+        // Fetch the customer record
+        $customer = CustomerCredit::find($request->customer_id);
+
+        // Calculate new balances
+        $recoveryAmount = $request->recovery_amount;
+        $updatedClosingBalance = $customer->closing_balance - $recoveryAmount;
+
+        // Store recovery details in the CustomerRecovery table (assumes you have this table)
+        CustomerRecovery::create([
+            'customer_id' => $customer->id,
+            'customer_name' => $customer->customer_name,
+            'recovery_date' => $request->recovery_date,
+            'recovery_amount' => $recoveryAmount,
+            'closing_balance' => $updatedClosingBalance,
+        ]);
+
+        // Update customer's balance in the Customer table
+        $customer->previous_balance -= $recoveryAmount;
+        $customer->closing_balance = $updatedClosingBalance;
+        $customer->save();
+
+        return redirect()->back()->with('success', 'Customer recovery details saved successfully!');
+    }
+
+    public function customer_recovires()
+    {
+        if (Auth::id()) {
+            $userId = Auth::id();
+            // dd($userId);
+            // Fetch customers along with their closing balance from customer_credits
+            $Customers = CustomerRecovery::get();
+
+            return view('admin_panel.customers.customers_recoveries', [
+                'Customers' => $Customers
+            ]);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+
 }
