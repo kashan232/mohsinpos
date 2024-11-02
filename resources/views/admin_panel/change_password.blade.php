@@ -25,7 +25,7 @@
                             <div class="card-body p-0">
                                 <div class="d-flex p-3 bg--primary align-items-center">
                                     <div class="avatar avatar--lg">
-                                        <img src="/assets/admin/images/user.png" alt="Image">
+                                        <img src="{{ asset('assets/admin/images/user.png') }}" alt="Image">
                                     </div>
                                     <div class="ps-3">
                                         <h4 class="text--white">Super Admin</h4>

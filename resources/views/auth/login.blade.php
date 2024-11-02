@@ -18,7 +18,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 0 20px;
             background: #ddd;
             background: url('/assets/admin/images/background4.jpg');

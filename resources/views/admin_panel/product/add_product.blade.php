@@ -101,12 +101,12 @@
                                                         <input type="text" class="form-control" name="barcode_number" id="barcodeInput" autofocus>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <!-- <div class="col-sm-6">
                                                     <div class="form-group ">
                                                         <label class="form-label">SKU</label>
                                                         <input type="text" class="form-control " name="sku">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Unit(UoM)</label>

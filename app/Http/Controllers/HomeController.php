@@ -57,11 +57,12 @@ class HomeController extends Controller
                 $CustomerCredit = CustomerCredit::all();
                 $CustomerCreditTotal = CustomerCredit::sum('closing_balance');
 
+                $totalsaleprice = \App\Models\Sale::sum('Payable_amount');
 
 
                 // $lowStockProducts = Product::whereRaw('CAST(stock AS UNSIGNED) <= CAST(alert_quantity AS UNSIGNED)')->get();
                 // dd($lowStockProducts);
-                return view('admin_panel.admin_dashboard', compact('totalPurchasesPrice', 'totalPurchaseReturnsPrice', 'all_product', 'totalStockValue', 'categories', 'products', 'suppliers', 'customers','CustomerCredit','CustomerCreditTotal'));
+                return view('admin_panel.admin_dashboard', compact('totalPurchasesPrice', 'totalPurchaseReturnsPrice', 'all_product', 'totalStockValue', 'categories', 'products', 'suppliers', 'customers','CustomerCredit','CustomerCreditTotal','totalsaleprice'));
             }
         } else {
             return Redirect()->route('login');

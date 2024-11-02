@@ -25,11 +25,6 @@
     <link rel="stylesheet" href="assets/admin/css/vendor/datepicker.min.css">
     <link rel="stylesheet" href="assets/admin/css/app.css?v=1">
     <link rel="stylesheet" href="assets/admin/css/custom.css"> -->
-
-
-
-
-
     <style>
         .widget-two__btn {
             right: 15px !important;

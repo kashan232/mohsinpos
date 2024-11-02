@@ -15,7 +15,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item sidebar-dropdown">
+                <!-- <li class="sidebar-menu-item sidebar-dropdown">
                     <a class="" href="javascript:void(0)">
                         <i class="menu-icon las la-users"></i>
                         <span class="menu-title">Manage Staff</span>
@@ -38,7 +38,7 @@
 
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="">
@@ -76,6 +76,71 @@
                     </div>
                 </li>
 
+                
+                <li class="sidebar-menu-item sidebar-dropdown">
+                    <a href="javascript:void(0)" class="">
+                        <i class="menu-icon la la-shopping-bag"></i>
+                        <span class="menu-title">Purchase</span>
+                    </a>
+                    <div class="sidebar-submenu  ">
+                        <ul>
+                            <li class="sidebar-menu-item  ">
+                                <a href="{{ route('Purchase') }}"
+                                    class="nav-link">
+                                    <i class="menu-icon la la-dot-circle"></i>
+                                    <span class="menu-title">All Purchases</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item  ">
+                                <a href="{{ route('all-purchase-return') }}"
+                                    class="nav-link">
+                                    <i class="menu-icon la la-dot-circle"></i>
+                                    <span class="menu-title">Purchases Return</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <li class="sidebar-menu-item">
+                    <a href="{{ route('customer') }}" class="nav-link">
+                        <i class="menu-icon la la-users"></i>
+                        <span class="menu-title">Customer</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-menu-item sidebar-dropdown">
+                    <a href="javascript:void(0)" class="">
+                        <i class="menu-icon la la-shopping-cart"></i>
+                        <span class="menu-title">Sale</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li class="sidebar-menu-item  ">
+                                <a href="{{ route('all-sales') }}" class="nav-link">
+                                    <i class="menu-icon la la-dot-circle"></i>
+                                    <span class="menu-title">All Sales</span>
+                                </a>
+                            </li>
+                            <!-- <li class="sidebar-menu-item  ">
+                                <a href="#"
+                                    class="nav-link">
+                                    <i class="menu-icon la la-dot-circle"></i>
+                                    <span class="menu-title">Sales Return</span>
+                                </a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </li>
+                
+                <li class="sidebar-menu-item">
+                    <a href="{{ route('customer-recovires') }}" class="nav-link">
+                        <i class="menu-icon la la-users"></i>
+                        <span class="menu-title">Customer Recoveries</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-menu-item ">
                     <a href="{{ route('product-alerts') }}" class="nav-link ">
                         <i class="menu-icon las la-bell"></i>
@@ -110,31 +175,6 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item sidebar-dropdown">
-                    <a href="javascript:void(0)" class="">
-                        <i class="menu-icon la la-shopping-bag"></i>
-                        <span class="menu-title">Purchase</span>
-                    </a>
-                    <div class="sidebar-submenu  ">
-                        <ul>
-                            <li class="sidebar-menu-item  ">
-                                <a href="{{ route('Purchase') }}"
-                                    class="nav-link">
-                                    <i class="menu-icon la la-dot-circle"></i>
-                                    <span class="menu-title">All Purchases</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item  ">
-                                <a href="{{ route('all-purchase-return') }}"
-                                    class="nav-link">
-                                    <i class="menu-icon la la-dot-circle"></i>
-                                    <span class="menu-title">Purchases Return</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
                 <li class="sidebar-menu-item  ">
                     <a href="{{ route('all-purchase-return-damage-item') }}"
                         class="nav-link">
@@ -143,43 +183,9 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item">
-                    <a href="{{ route('customer') }}" class="nav-link">
-                        <i class="menu-icon la la-users"></i>
-                        <span class="menu-title">Customer</span>
-                    </a>
-                </li>
+               
 
-                <li class="sidebar-menu-item">
-                    <a href="{{ route('customer-recovires') }}" class="nav-link">
-                        <i class="menu-icon la la-users"></i>
-                        <span class="menu-title">Customer Recoveries</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-menu-item sidebar-dropdown">
-                    <a href="javascript:void(0)" class="">
-                        <i class="menu-icon la la-shopping-cart"></i>
-                        <span class="menu-title">Sale</span>
-                    </a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li class="sidebar-menu-item  ">
-                                <a href="{{ route('all-sales') }}" class="nav-link">
-                                    <i class="menu-icon la la-dot-circle"></i>
-                                    <span class="menu-title">All Sales</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item  ">
-                                <a href="sale_return/sale_return.html"
-                                    class="nav-link">
-                                    <i class="menu-icon la la-dot-circle"></i>
-                                    <span class="menu-title">Sales Return</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                
             </ul>
             <div class="text-center mb-3 text-uppercase">
                 <span class="text--primary">POS</span>
