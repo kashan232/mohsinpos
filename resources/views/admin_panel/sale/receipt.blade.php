@@ -95,7 +95,7 @@
         }
     </style>
     <script>
-        window.onload = function () {
+        window.onload = function() {
             window.print();
         }
     </script>
@@ -150,14 +150,6 @@
                     <td colspan="3">Net Total</td>
                     <td><strong>{{ $sale->Payable_amount }}</strong></td>
                 </tr>
-                <tr class="totals">
-                    <td colspan="3">Cash Received</td>
-                    <td>{{ $sale->cash_received }}</td>
-                </tr>
-                <tr class="totals">
-                    <td colspan="3">Cash Returned</td>
-                    <td>{{ $sale->change_return }}</td>
-                </tr>
             </tfoot>
         </table>
 
@@ -170,14 +162,14 @@
     </div>
 
     <script>
-        window.onload = function () {
+        window.onload = function() {
             window.print();
-            setTimeout(function () {
+            setTimeout(function() {
                 window.location.href = '/all-sales'; // Replace with your redirect URL
             }, 1000);
         }
     </script>
-    
+
 </body>
 
 </html>
