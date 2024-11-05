@@ -51,16 +51,19 @@ Route::get('/get-product-by-barcode', [HomeController::class, 'getProductByBarco
 Route::get('/category', [CategoryController::class, 'category'])->middleware(['auth','admin'])->name('category');
 Route::post('/store-category', [CategoryController::class, 'store_category'])->name('store-category');
 Route::post('/update-category', [CategoryController::class, 'update_category'])->name('update-category');
+Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 //brand
 Route::get('/brand', [BrandController::class, 'brand'])->middleware(['auth','admin'])->name('brand');
 Route::post('/store-brand', [BrandController::class, 'store_brand'])->name('store-brand');
 Route::post('/update-brand', [BrandController::class, 'update_brand'])->name('update-brand');
+Route::delete('/brand/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
 
 //unit
 Route::get('/unit', [UnitController::class, 'unit'])->middleware(['auth','admin'])->name('unit');
 Route::post('/store-unit', [UnitController::class, 'store_unit'])->name('store-unit');
 Route::post('/update-unit', [UnitController::class, 'update_unit'])->name('update-unit');
+Route::delete('/unit/{id}', [UnitController::class, 'destroy'])->name('unit.destroy');
 
 //product
 Route::get('/all-product', [ProductController::class, 'all_product'])->middleware(['auth','admin'])->name('all-product');
@@ -69,6 +72,7 @@ Route::post('/store-product', [ProductController::class, 'store_product'])->name
 Route::get('/edit-product/{id}', [ProductController::class, 'edit_product'])->middleware(['auth','admin'])->name('edit-product');
 Route::post('/update-product/{id}', [ProductController::class, 'update_product'])->name('update-product');
 Route::get('/product-alerts', [ProductController::class, 'product_alerts'])->name('product-alerts');
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 //warehouse
 Route::get('/warehouse', [WarehouseController::class, 'warehouse'])->middleware(['auth','admin'])->name('warehouse');
@@ -104,6 +108,7 @@ Route::post('/store-purchase-return', [PurchaseController::class, 'store_purchas
 Route::get('/all-purchase-return', [PurchaseController::class, 'all_purchase_return'])->name('all-purchase-return');
 Route::post('/purchase-return-payment', [PurchaseController::class, 'purchase_return_payment'])->name('purchase-return-payment');
 Route::get('/get-unit-by-product/{productId}', [PurchaseController::class, 'getUnitByProduct']);
+Route::delete('/purchase/{id}', [PurchaseController::class, 'destroy'])->name('purchase.destroy');
 
 
 Route::get('/purchase-return-damage-item/{id}', [PurchaseController::class, 'purchase_return_damage_item'])->name('purchase-return-damage-item');

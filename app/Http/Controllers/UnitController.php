@@ -13,7 +13,12 @@ class UnitController extends Controller
     {
         if (Auth::id()) {
             $userId = Auth::id();
-            $all_unit = Unit::where('admin_or_user_id', '=', $userId)->get();
+            $all_unit = Unit::where('admin_or_user_id', '=', $userId)
+                ->get()
+                ->map(function ($Unit) {
+                    $Unit->products_count = $Unit->products()->count();
+                    return $Unit;
+                });
             return view('admin_panel.unit.unit', [
                 'all_unit' => $all_unit
             ]);
@@ -21,6 +26,7 @@ class UnitController extends Controller
             return redirect()->back();
         }
     }
+
     public function store_unit(Request $request)
     {
         if (Auth::id()) {
@@ -32,7 +38,7 @@ class UnitController extends Controller
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ]);
-            return redirect()->back()->with('unit-added', 'Unit Added Successfully');
+            return redirect()->back()->with('success', 'Unit Added Successfully');
         } else {
             return redirect()->back();
         }
@@ -50,9 +56,16 @@ class UnitController extends Controller
                 'unit'   => $unit,
                 'updated_at' => Carbon::now(),
             ]);
-            return redirect()->back()->with('unit-updte', 'unit Updated Successfully');
+            return redirect()->back()->with('success', 'unit Updated Successfully');
         } else {
             return redirect()->back();
         }
+    }
+
+    public function destroy($id)
+    {
+        $Unit = Unit::findOrFail($id);
+        $Unit->delete();
+        return redirect()->back()->with('success', 'unit deleted successfully');
     }
 }

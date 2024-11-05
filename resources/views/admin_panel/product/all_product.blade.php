@@ -26,32 +26,15 @@
                         <a href="{{ route('add-product') }}"
                             class="btn btn-outline--primary">
                             <i class="la la-plus"></i>Add New </a>
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-outline--success dropdown-toggle"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Action </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="https://script.viserlab.com/torylab/admin/product/pdf"><i
-                                            class="la la-download"></i>Export PDF</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="https://script.viserlab.com/torylab/admin/product/csv"><i
-                                            class="la la-download"></i>Export CSV</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item importBtn" href="javascript:void(0)">
-                                        <i class="las la-cloud-upload-alt"></i> Import CSV</a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            <strong>Success!</strong> {{ session('success') }}.
+                        </div>
+                        @endif
                         <div class="card b-radius--10">
                             <div class="card-body p-0">
                                 <div class="table-responsive--md table-responsive">
@@ -99,11 +82,24 @@
                                                 <td>{{ $product->wholesale_price }}</td>
                                                 <td>{{ $product->retail_price }}</td>
                                                 <td>
+
+
                                                     <div class="button--group">
                                                         <a href="{{ route('edit-product',['id' => $product->id ]) }}"
                                                             class="btn btn-sm btn-outline--primary ms-1 editBtn"><i
                                                                 class="las la-pen"></i> Edit</a>
+
+                                                        <form action="{{ route('product.destroy', $product->id) }}" method="POST" style="display: inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this product?')">
+                                                                <i class="la la-trash"></i> Delete
+                                                            </button>
+                                                        </form>
                                                     </div>
+
+
+
                                                 </td>
                                                 @endforeach
                                         </tbody>

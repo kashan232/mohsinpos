@@ -124,6 +124,15 @@
                                                             "> <i class="la la-undo"></i> Damage Item</a>
                                                         </div>
                                                     </div>
+
+                                                    <form action="{{ route('purchase.destroy', $purchase->id) }}" method="POST" style="display: inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this purchase?')">
+                                                                <i class="la la-trash"></i> Delete
+                                                            </button>
+                                                        </form>
+
                                                 </td>
 
                                             </tr>

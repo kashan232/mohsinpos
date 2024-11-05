@@ -35,6 +35,11 @@
 
                 <div class="row">
                     <div class="col-lg-12">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            <strong>Success!</strong> {{ session('success') }}.
+                        </div>
+                        @endif
                         <div class="card b-radius--10">
                             <div class="card-body p-0">
                                 <div class="table-responsive--sm table-responsive">
@@ -52,18 +57,20 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $unit->unit }}</td>
-                                                <td>2</td>
+                                                <td>{{ $unit->products_count }}</td>
                                                 <td>
                                                     <div class="button--group">
                                                         <button type="button"
                                                             class="btn btn-sm btn-outline--primary editunitBtn" data-toggle="modal" data-modal_title="Edit Unit"
-                                                             data-has_status="1" data-target="#editunit" data-unit-id="{{ $unit->id }}" data-unit-name="{{ $unit->unit }}">
+                                                            data-has_status="1" data-target="#editunit" data-unit-id="{{ $unit->id }}" data-unit-name="{{ $unit->unit }}">
                                                             <i class="la la-pencil"></i>Edit </button>
-                                                        {{-- <button type="button"
-                                                            class="btn btn-sm btn-outline-danger  disabled  confirmationBtn"
-                                                            data-question="Are you sure to delete this unit?"
-                                                            data-action="https://script.viserlab.com/torylab/admin/unit/delete/9">
-                                                            <i class="la la-trash"></i>Delete </button> --}}
+                                                        <form action="{{ route('unit.destroy', $unit->id) }}" method="POST" style="display: inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this unit?')">
+                                                                <i class="la la-trash"></i> Delete
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -102,33 +109,33 @@
                     </div>
                 </div>
 
-                 <!-- Edit Unit -->
-            <div class="modal fade" id="editunit" tabindex="-1" aria-labelledby="editunitLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editunitLabel">Edit Brand</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{{ route('update-unit') }}" method="POST">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="hidden" id="editUnitId" name="unit_id" class="form-control" required>
-                                    <input type="text" id="editUnitName" name="unit_name" class="form-control">
+                <!-- Edit Unit -->
+                <div class="modal fade" id="editunit" tabindex="-1" aria-labelledby="editunitLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editunitLabel">Edit Brand</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('update-unit') }}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="hidden" id="editUnitId" name="unit_id" class="form-control" required>
+                                        <input type="text" id="editUnitName" name="unit_name" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn--primary h-45 w-100">Update</button>
-                            </div>
-                        </form>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn--primary h-45 w-100">Update</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
 
                 <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg">

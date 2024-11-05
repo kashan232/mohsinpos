@@ -16,4 +16,9 @@ class Unit extends Model
         'unit'
     ];
 
+    // In Brand model
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'unit', 'unit');
+    }
 }

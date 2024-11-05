@@ -15,4 +15,11 @@ class Brand extends Model
         'admin_or_user_id',
         'brand'
     ];
+
+    // In Brand model
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'brand', 'brand');
+    }
+
 }

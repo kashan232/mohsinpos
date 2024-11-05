@@ -21,7 +21,7 @@
             justify-content: flex-start;
             padding: 0 20px;
             background: #ddd;
-            background: url('/assets/admin/images/background4.jpg');
+            background: url('/assets/admin/images/login.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;

@@ -32,7 +32,7 @@
                                                 <select name="supplier" class="select2-basic form-control" required>
                                                     <option selected disabled>Select One</option>
                                                     @foreach($Suppliers as $Supplier)
-                                                        <option value="{{ $Supplier->name }}">{{ $Supplier->name }}</option>
+                                                    <option value="{{ $Supplier->name }}">{{ $Supplier->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -51,7 +51,7 @@
                                                 <select name="warehouse_id" class="form-control" required>
                                                     <option selected disabled>Select One</option>
                                                     @foreach($Warehouses as $Warehouse)
-                                                        <option value="{{ $Warehouse->name }}">{{ $Warehouse->name }}</option>
+                                                    <option value="{{ $Warehouse->name }}">{{ $Warehouse->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -78,7 +78,7 @@
                                                             <select name="item_category[]" class="form-control item-category" required>
                                                                 <option value="" disabled selected>Select Category</option>
                                                                 @foreach($Category as $Categories)
-                                                                    <option value="{{ $Categories->category }}">{{ $Categories->category }}</option>
+                                                                <option value="{{ $Categories->category }}">{{ $Categories->category }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </td>
@@ -252,9 +252,16 @@
                     e.target.closest('tr').remove();
                 }
             });
-
             // Calculate total and payable amount
             purchaseItems.addEventListener('input', function(e) {
+                calculateTotalAndPayable();
+            });
+
+            // Event listener for the discount input
+            document.querySelector('input[name="discount"]').addEventListener('input', calculateTotalAndPayable);
+
+            // Function to calculate total price and payable amount
+            function calculateTotalAndPayable() {
                 const rows = purchaseItems.querySelectorAll('tr');
                 let totalPrice = 0;
 
@@ -274,10 +281,11 @@
 
                 // Update total price
                 document.querySelector('.total_price').value = totalPrice;
+
                 // Calculate and update payable amount
                 const discount = parseFloat(document.querySelector('input[name="discount"]').value) || 0;
                 document.querySelector('.payable_amount').value = totalPrice - discount;
-            });
+            }
         });
     </script>
 

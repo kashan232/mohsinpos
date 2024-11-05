@@ -23,6 +23,11 @@
                 </div>
                 <div class="row mb-none-30">
                     <div class="col-lg-12 col-md-12 mb-30">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            <strong>Success!</strong> {{ session('success') }}.
+                        </div>
+                        @endif
                         <div class="card">
                             <div class="card-body">
                                 <form action="{{ route('update-product',['id'=> $product_details->id ]) }}" method="POST" enctype="multipart/form-data">
@@ -80,13 +85,6 @@
                                                             </option>
                                                             @endforeach
                                                         </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">SKU</label>
-                                                        <input type="text" class="form-control" name="sku" value="{{ $product_details->sku }}" required>
                                                     </div>
                                                 </div>
 

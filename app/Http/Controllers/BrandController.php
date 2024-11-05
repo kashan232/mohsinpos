@@ -14,14 +14,20 @@ class BrandController extends Controller
     {
         if (Auth::id()) {
             $userId = Auth::id();
-            $all_brand = Brand::where('admin_or_user_id', '=', $userId)->get();
-            return view('admin_panel.brand.brand', [
-                'all_brand' => $all_brand
-            ]);
+            $all_brand = Brand::where('admin_or_user_id', '=', $userId)
+                ->get()
+                ->map(function ($brands) {
+                    $brands->products_count = $brands->products()->count();
+                    return $brands;
+                });
+                return view('admin_panel.brand.brand', [
+                    'all_brand' => $all_brand
+                ]);
         } else {
             return redirect()->back();
         }
     }
+
     public function store_brand(Request $request)
     {
         if (Auth::id()) {
@@ -33,7 +39,7 @@ class BrandController extends Controller
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ]);
-            return redirect()->back()->with('brand-added', 'brand Added Successfully');
+            return redirect()->back()->with('success', 'brand Added Successfully');
         } else {
             return redirect()->back();
         }
@@ -51,9 +57,16 @@ class BrandController extends Controller
                 'brand'   => $brand,
                 'updated_at' => Carbon::now(),
             ]);
-            return redirect()->back()->with('Category-updte', 'Category Updated Successfully');
+            return redirect()->back()->with('success', 'Category Updated Successfully');
         } else {
             return redirect()->back();
         }
+    }
+
+    public function destroy($id)
+    {
+        $Brand = Brand::findOrFail($id);
+        $Brand->delete();
+        return redirect()->back()->with('success', 'Brand deleted successfully');
     }
 }

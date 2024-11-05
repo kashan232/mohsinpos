@@ -171,7 +171,7 @@
                                                 <div class="col-xl-12 col-sm-12">
                                                     <div class="form-group">
                                                         <label class="form-label">Previous Balance</label>
-                                                        <input type="text" class="form-control" id="previous_balance" readonly>
+                                                        <input type="text" class="form-control" id="previous_balance" name="previous_balance" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">

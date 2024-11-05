@@ -47,16 +47,15 @@ class ProductController extends Controller
     public function store_product(Request $request)
     {
         if (Auth::id()) {
-            $usertype = Auth()->user()->usertype;
             $userId = Auth::id();
 
             // Handle image upload
-            $image = $request->file('image');
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $imagePath = 'product_images/' . $imageName;
-
-            // Save the original image to the public directory
-            $image->move(public_path('product_images'), $imageName);
+            $imageName = null;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('product_images'), $imageName);
+            }
 
             Product::create([
                 'admin_or_user_id' => $userId,
@@ -64,20 +63,22 @@ class ProductController extends Controller
                 'category'         => $request->category,
                 'brand'            => $request->brand,
                 'stock'            => $request->stock,
-                'barcode_number'            => $request->barcode_number,
+                'barcode_number'   => $request->barcode_number,
                 'sku'              => $request->sku,
                 'unit'             => $request->unit,
                 'alert_quantity'   => $request->alert_quantity,
                 'note'             => $request->note,
-                'image'            => $imageName,
+                'image'            => $imageName, // Will be null if no image was uploaded
                 'created_at'       => Carbon::now(),
                 'updated_at'       => Carbon::now(),
             ]);
-            return redirect()->back()->with('unit-added', 'Product Added Successfully');
+
+            return redirect()->back()->with('success', 'Product Added Successfully');
         } else {
             return redirect()->back();
         }
     }
+
     public function edit_product($id)
     {
         if (Auth::id()) {
@@ -140,7 +141,7 @@ class ProductController extends Controller
             // Save updated product
             $product->save();
 
-            return redirect()->route('all-product')->with('product-updated', 'Product updated successfully');
+            return redirect()->back()->with('success', 'Product updated successfully');
         } else {
             return redirect()->back();
         }
@@ -181,5 +182,12 @@ class ProductController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    public function destroy($id)
+    {
+        $Product = Product::findOrFail($id);
+        $Product->delete();
+        return redirect()->back()->with('success', 'Product deleted successfully');
     }
 }

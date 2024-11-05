@@ -35,6 +35,11 @@
 
                 <div class="row">
                     <div class="col-lg-12">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            <strong>Success!</strong> {{ session('success') }}.
+                        </div>
+                        @endif
                         <div class="card b-radius--10 ">
                             <div class="card-body p-0">
                                 <div class="table-responsive--sm table-responsive">
@@ -52,7 +57,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $brand->brand }}</td>
-                                                <td>3</td>
+                                                <td>{{ $brand->products_count }}</td>
                                                 <td>
                                                     <div class="button--group">
                                                         <button type="button"
@@ -61,11 +66,13 @@
                                                             data-target="#editbrand" data-brand-id="{{ $brand->id }}" data-brand-name="{{ $brand->brand }}">
                                                             <i class="la la-pencil"></i>Edit </button>
 
-                                                        {{-- <button type="button"
-                                                            class="btn btn-sm btn-outline-danger  disabled  confirmationBtn"
-                                                            data-question="Are you sure to delete this brand?"
-                                                            data-action="https://script.viserlab.com/torylab/admin/brand/delete/8">
-                                                            <i class="la la-trash"></i>Delete </button> --}}
+                                                        <form action="{{ route('brand.destroy', $brand->id) }}" method="POST" style="display: inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Brand?')">
+                                                                <i class="la la-trash"></i> Delete
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -79,7 +86,7 @@
                 </div>
 
                 <!--Create Update Modal -->
-                <div id="cuModal"  class="modal fade" tabindex="-1" role="dialog">
+                <div id="cuModal" class="modal fade" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -104,33 +111,33 @@
                     </div>
                 </div>
 
-                 <!-- Edit Brand -->
-            <div class="modal fade" id="editbrand" tabindex="-1" aria-labelledby="editbrandLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editbrandLabel">Edit Brand</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{{ route('update-brand') }}" method="POST">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="hidden" id="editbrandId" name="brand_id" class="form-control" required>
-                                    <input type="text" id="editbrandName" name="brand_name" class="form-control">
+                <!-- Edit Brand -->
+                <div class="modal fade" id="editbrand" tabindex="-1" aria-labelledby="editbrandLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editbrandLabel">Edit Brand</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('update-brand') }}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="hidden" id="editbrandId" name="brand_id" class="form-control" required>
+                                        <input type="text" id="editbrandName" name="brand_name" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn--primary h-45 w-100">Update</button>
-                            </div>
-                        </form>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn--primary h-45 w-100">Update</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
 
                 <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg">

@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-   
     public function category()
     {
         if (Auth::id()) {
             $userId = Auth::id();
-            // dd($userId);
-            $all_categories = Category::where('admin_or_user_id', '=', $userId)->get();
+            $all_categories = Category::where('admin_or_user_id', '=', $userId)
+                ->get()
+                ->map(function ($category) {
+                    $category->products_count = $category->products()->count();
+                    return $category;
+                });
+    
             return view('admin_panel.category.category', [
                 'all_categories' => $all_categories
             ]);
@@ -34,7 +38,7 @@ class CategoryController extends Controller
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ]);
-            return redirect()->back()->with('Category-added', 'Category Added Successfully');
+            return redirect()->back()->with('success', 'Category Added Successfully');
         } else {
             return redirect()->back();
         }
@@ -52,10 +56,16 @@ class CategoryController extends Controller
                 'category'   => $category,
                 'updated_at' => Carbon::now(),
             ]);
-            return redirect()->back()->with('Category-updte', 'Category Updated Successfully');
+            return redirect()->back()->with('success', 'Category Updated Successfully');
         } else {
             return redirect()->back();
         }
     }
 
+    public function destroy($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return redirect()->back()->with('success', 'Category deleted successfully');
+    }
 }

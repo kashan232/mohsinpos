@@ -596,4 +596,12 @@ class PurchaseController extends Controller
             return redirect()->back();
         }
     }
+
+    public function destroy($id)
+    {
+        $Purchase = Purchase::findOrFail($id);
+        $Purchase->delete();
+        return redirect()->back()->with('success', 'Purchase deleted successfully');
+    }
+
 }
